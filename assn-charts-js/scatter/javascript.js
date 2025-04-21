@@ -115,13 +115,13 @@ var ctx = document.getElementById('myChart').getContext('2d');
               y: {
                 title: {
                   display: true,
-                  text: 'Alcohol frequency'
+                  text: 'Number of weeks where alcohol was consumed'
                 }
               },
               x: {
                   title: {
                       display: true,
-                      text: 'Alcohol use'
+                      text: 'Total alcoholic drinks'
                   }
               }
             }
