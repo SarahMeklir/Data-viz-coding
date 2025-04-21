@@ -101,7 +101,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
             plugins: {
                title: {
                   display: true,
-                  text: 'Alcohol use by age',
+                  text: 'Yearly alcohol use by age',
                   font: {
                     size: 18
                   }
@@ -115,13 +115,13 @@ var ctx = document.getElementById('myChart').getContext('2d');
               y: {
                 title: {
                   display: true,
-                  text: 'Number of weeks where alcohol was consumed'
+                  text: 'Median times a user consumed alcohol'
                 }
               },
               x: {
                   title: {
                       display: true,
-                      text: 'Total alcoholic drinks'
+                      text: 'Percentage of age group who consumed alcohol'
                   }
               }
             }
