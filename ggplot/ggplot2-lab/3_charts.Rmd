@@ -1,0 +1,65 @@
+---
+title: "3_charts"
+output: html_document
+---
+installing libraries I might need
+```{r}
+library(tidyverse)
+library(scales)
+library(treemapify)
+library(RColorBrewer)
+library(svglite)
+```
+
+calling spotify data
+
+```{r}
+spotify_data <- read.csv("Most_Streamed_Spotify _Songs_2023.csv")
+```
+
+here's the first thing I wanna chart: 
+top ten songs in most spotify playlists
+```{r}
+spotify_bar_chart_data <- spotify_data %>% top_n(10, in_spotify_playlists)
+```
+
+now organizing in descending order
+```{r}
+spotify_bar_chart_data %>% ggplot(aes(x = reorder(track_name,desc(in_spotify_playlists)), y = in_spotify_playlists)) +
+  geom_col()
+```
+adding more specifics:
+```{r}
+spotify_bar_chart_data %>% ggplot(aes(x = reorder(track_name,desc(in_spotify_playlists)), y = in_spotify_playlists)) +
+  geom_col(fill = "red")+
+  scale_y_continuous(labels = scales::label_number()) +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  labs(title = "Songs on the most Spotify playlists in 2023", subtitle = "Daft Punk's 2013 hit 'Get Lucky' topped the list on nearly 53k playlists", caption = "Source: Spotify via Kaggle \n by Sarah Meklir")+
+  theme_minimal()+
+  theme(axis.title = element_blank())
+```
+
+Awesome! On to the next chart. This one will be a line chart looking at streams based on the year they were released. 
+```{r}
+spotify_area_data <- spotify_data %>% top_n(10, streams) %>% arrange(desc(released_year))
+
+spotify_area_data %>% ggplot(aes(x = released_year, y = streams)) +
+  geom_line(alpha = 0.5, fill="darkred") +   
+  labs(title = "Studying Spotify Streams by Release Year", subtitle = "2023 Spotify stream spikes in songs released in 2017 and 2019", caption = "Source: Spotify via Kaggle \n by Sarah Meklir", x = "Year", y = "Count")
+```
+
+I mean sure! That's not really what I had in mind, but I've tried and I'm not sure how to get it. On to scatter plots!
+
+Going to compare bpm and danceability to see if those are linked. My guess is yes.
+```{r}
+  ggplot(spotify_data, aes(bpm, danceability_., color = energy_.)) +
+    geom_point()
+```
+Interesting! It looks like danceability and bpm aren't inextricably linked, and it's cool to see the energy tending to be lower at lower danceability. 
+
+Adding chatter and headings: 
+```{r}
+  ggplot(spotify_data, aes(bpm, danceability_., color = energy_.)) +
+    geom_point() +
+labs(title = "Are BPM (beats per minute) and danceability related?", subtitle = "Examining the top-streamed songs on Spotify in 2023", caption = "Source: Spotify via Kaggle \n by Sarah Meklir", x = "BPM", y = "Danceability", color = "Energy")
+```
