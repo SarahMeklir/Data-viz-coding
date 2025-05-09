@@ -159,7 +159,26 @@ scale_fill_manual(values=c("#756bb1", "#2ca25f"))
 ```
 Now you try: With a buddy, make your own super awesome bar chart
 ```{r}
+bar_chart_data <- data %>% filter(year == 2003) %>% top_n(10, n)
 
+bar_chart_data %>% ggplot(aes(x = name, y = n)) 
+
+bar_chart_data %>% ggplot(aes(x = name, y = n)) +
+  geom_col()
+
+bar_chart_data %>% ggplot(aes(x = reorder(name,desc(n)), y = n)) +
+  geom_col()
+
+bar_chart_data %>% ggplot(aes(x = reorder(name,desc(n)), y = comma(n), fill = sex)) +
+  geom_col(alpha = .8) +
+  labs(title = "The 10 most common baby names in 2003", subtitle = "Note as common as Sarah is, it's not in the top 10. Interestingly, only two female names there.", caption = "Source: Social Security Administration\nby Olga Pierce") +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        axis.text.y = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+geom_text(aes(label = comma(n)), vjust = -0.5) +
+scale_fill_manual(values=c("#0096FF", "#ffa500"))
 ```
 
 ### Let's make a line chart
@@ -224,6 +243,10 @@ facet_names %>% ggplot(aes(x = year, y = prop, color = name)) +
 
 Your turn: With a buddy, make a rad line chart
 ```{r}
+line_chart_data <- data %>% filter(sex == "F" & name %in% c("Sarah"))
 
+line_chart_data %>% ggplot(aes(x = year, y = prop, color = name, fill = name)) +
+  geom_density(stat = "identity", alpha = .5) +
+  theme_minimal()
 ```
 
