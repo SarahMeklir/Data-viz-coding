@@ -207,7 +207,14 @@ Time to work on your own! Use the spotify data and the code we reviewed above to
 
 3. Make another chart using this data, anything you like.
 
-
+```{r}
+spotify_bar_chart_data %>% ggplot(aes(x = reorder(artist.s._name,desc(streams)), y = streams)) +
+  geom_col(fill="lightblue")+
+  scale_y_continuous(labels = scales::label_number(scale = 1e-9, suffix = "B")) +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  labs(title = "Artists With the Most-Streamed Spotify Songs of 2023", subtitle = "The Weeknd and Ed Sheeran separate themselves from the pack, with songs over three billion stream", caption = "Source: Spotify via Kaggle \n by Sarah Meklir")+
+  theme_minimal()+
+  theme(axis.title = element_blank())
+```
 When finished, save and submit this R Markdown file to ELMS.
-
 

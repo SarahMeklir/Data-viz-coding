@@ -171,7 +171,7 @@ bar_chart_data %>% ggplot(aes(x = reorder(name,desc(n)), y = n)) +
 
 bar_chart_data %>% ggplot(aes(x = reorder(name,desc(n)), y = comma(n), fill = sex)) +
   geom_col(alpha = .8) +
-  labs(title = "The 10 most common baby names in 2003", subtitle = "Note as common as Sarah is, it's not in the top 10. Interestingly, only two female names there.", caption = "Source: Social Security Administration\nby Olga Pierce") +
+  labs(title = "The 10 most common baby names in 2003", subtitle = "Note as common as Sarah is, it's not in the top 10. Interestingly, only two female names there.", caption = "Source: Social Security Administration\nby Sarah Meklir") +
   theme_minimal() +
   theme(axis.title = element_blank(),
         axis.text.y = element_blank(),
